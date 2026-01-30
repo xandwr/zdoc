@@ -52,10 +52,31 @@ The HTML-based `search-index.js` format changed to a compressed "stringdex" form
 **Critical:** The JSON format requires `RUSTDOCFLAGS="-Z unstable-options --output-format json"`. This is an unstable rustdoc feature but works reliably on stable Rust with `RUSTC_BOOTSTRAP=1`.
 
 ### `diff <crate> <ver1> <ver2>`
-**Status: 🚧 Planned**
+**Status: ✅ Implemented (docs.rs only)**
 
-Pulls docs for both versions and shows a terminal diff of the public API.
-Output is similar to `git diff`, additions are green and removals are red.
+Fetches rustdoc JSON for both versions from docs.rs and shows a terminal diff of the public API.
+
+```bash
+zdoc diff colored latest latest  # Compare two versions
+```
+
+Returns a git-style colored diff showing:
+- **Added items** (green with `+`) - New functions, structs, traits, etc.
+- **Removed items** (red with `-`) - Items that were removed
+- **Modified items** (yellow with `~`) - Items whose signatures changed
+- Includes detailed signatures for functions (parameters, return types) and struct/enum details
+
+**Current Limitations:**
+- Only works with versions that have JSON docs on docs.rs (added May 2025)
+- Older crate versions will return 404 until docs.rs rebuilds are complete
+- **Future Enhancement:** Will add local cargo build fallback for historical versions
+
+**Implementation Notes:**
+- Fetches pre-built rustdoc JSON from `https://docs.rs/crate/{name}/{version}/json.gz`
+- Decompresses gzip data and parses with `serde_json`
+- Extracts function signatures, struct fields, enum variants from JSON
+- Compares using HashMaps to categorize changes (added/removed/modified)
+- Outputs with ANSI colors via the `colored` crate
 
 ### `features <crate>`
 **Status: ✅ Implemented**
@@ -85,6 +106,10 @@ Modern rustdoc generates two formats:
 - `serde_json` - JSON parsing for rustdoc output
 - `rustdoc-types` - Type definitions for rustdoc JSON (currently unused but available)
 - `anyhow` - Error handling
+- `reqwest` - HTTP client for fetching docs from docs.rs
+- `tokio` - Async runtime for HTTP requests
+- `colored` - ANSI terminal colors for diff output
+- `flate2` - Gzip decompression for docs.rs JSON
 
 ### Future Considerations
 - Could add caching of parsed JSON to speed up repeated searches
