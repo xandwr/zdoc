@@ -18,7 +18,7 @@ Just looking at what crates are actually present in the local `Cargo.toml` file.
 User will know what this means since... they've likely installed it via Cargo itself.
 
 ## Commands (proposed)
-- `search [crate] [query] {--results N}`
+- `search [query] [crate] {--results N}`
     - Returns the top N scored fuzzy results for the given query in the given crate.
         - *(defaults to global search of all installed deps if no crate specified)*
     - Shows the function signature and the first line of the doc comment if present.

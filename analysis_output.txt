@@ -1,0 +1,27 @@
+=== RUSTDOC SEARCH INDEX ANALYSIS ===
+
+1. NORMALIZED NAMES:
+------------------------------------------------------------
+Compressed size: 4752 chars
+Decoded size: 3564 bytes
+N field: Ge
+H field (hash): KgliyEE8
+
+Extracted 117 normalized names:
+Traceback (most recent call last):
+  File "C:\Users\ajame\Documents\Projects\Rust\zdoc\decode_stringdex.py", line 113, in <module>
+    print(f"  {i:3d}. {s}")
+  File "C:\Users\ajame\.pyenv\pyenv-win\versions\3.11.0b4\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u0f00' in position 8: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ajame\Documents\Projects\Rust\zdoc\decode_stringdex.py", line 115, in <module>
+    print(f"  {i:3d}. {repr(s)}")
+  File "C:\Users\ajame\.pyenv\pyenv-win\versions\3.11.0b4\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u0f00' in position 9: character maps to <undefined>
